@@ -4,34 +4,21 @@ const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
     const [totalScore, setTotalScore] = useState([0, 0])
     const [coed, setCoed] = useState(true)
+    const [halftime, setHalftime] = useState(true)
+    const [firstPointGender, setFirstPointGender] = useState('male')
     const [genderStatus, setGenderStatus] = useState({gender: 'male', point: 'game start'})
 
-    const checkGender = () => {
-        if(genderStatus.point !== 1 && genderStatus.point !== 2) {
-            if(genderStatus.gender === 'male') {
-                setGenderStatus({gender: 'female', point: 1})
-            } else {
-                setGenderStatus({gender: 'male', point: 1})
-            }
-        } else if(genderStatus.point === 1) {
-            setGenderStatus({...genderStatus, point: 2})
-        } else if(genderStatus.point === 2) {
-            if(genderStatus.gender === 'male') {
-                setGenderStatus({gender: 'female', point: 1})
-            } else {
-                setGenderStatus({gender: 'male', point: 1})
-            }
-        }
-    }
-    useEffect(() => {
-        if(coed) {
-            checkGender();
-            console.log(genderStatus)
-        }
-    },[totalScore])
+    
   return <AppContext.Provider value={{
       totalScore, 
-      setTotalScore
+      setTotalScore,
+      genderStatus,
+      setGenderStatus,
+      coed,
+      halftime,
+      setHalftime,
+      firstPointGender,
+      setFirstPointGender
     }}>{children}</AppContext.Provider>
 }
 export const useGlobalContext = () => {
