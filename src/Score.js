@@ -27,15 +27,17 @@ const Score = () => {
         }
         
         setTotalScore(newScoreArray)
-        checkGender(action)
+        // checkGender(action)
         
     }
     
     const checkGender = (action) => {
-        console.log(totalScore, genderStatus)
         if(coed) {
             if (action === 'inc') {
-                if(totalScore[0] === 8 || totalScore[1] === 8) {
+                if(totalScore[0] === 0 && totalScore[1] === 0) {
+                    return
+                }
+                else if(totalScore[0] === 8 || totalScore[1] === 8) {
                     if(halftime) {
                         if(firstPointGender === 'male') {
                             setGenderStatus({gender: 'female', point: 'half time point'})
@@ -78,7 +80,9 @@ const Score = () => {
             }
         }
     }
-
+    useEffect(() => {
+        checkGender('inc')
+    },[totalScore])
     return (
         <div className='score-container'>
             {totalScore.map((score, index) => {
