@@ -1,18 +1,10 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useGlobalContext } from './context'
+import data from './data'
 
 const Score = () => {
     const {totalScore, setTotalScore, genderStatus, setGenderStatus, coed, halftime, firstPointGender, setHalftime} = useGlobalContext();
-
-    const determineGender = (initialGender, totalScore, totalHalftimeScore) => {
-        const otherGender = initialGender == 'm' ? 'f' : 'm';
-
-        if (totalHalftimeScore) {
-            return Math.floor((totalScore - totalHalftimeScore + 1) / 2) % 2 ? initialGender : otherGender;
-        }
-
-        return (Math.floor(totalScore / 2) % 2) ? otherGender : initialGender;
-    };
+    const [genderCounter, setGenderCounter] = useState(0)
 
     const changeScore = (score, index, action) => {
         const newScoreArray = [...totalScore]
@@ -25,63 +17,29 @@ const Score = () => {
         } else {
             newScoreArray[index] = score + 1;
         }
-        
         setTotalScore(newScoreArray)
-        // checkGender(action)
-        
     }
     
-    const checkGender = (action) => {
-        if(coed) {
-            if (action === 'inc') {
-                if(totalScore[0] === 0 && totalScore[1] === 0) {
-                    return
-                }
-                else if(totalScore[0] === 8 || totalScore[1] === 8) {
-                    if(halftime) {
-                        if(firstPointGender === 'male') {
-                            setGenderStatus({gender: 'female', point: 'half time point'})
-                        } else {
-                            setGenderStatus({gender: 'male', point: 'half time point'})
-                        }
-                        setHalftime(false)
-                    } else {
-                        if(genderStatus.point !== 1 && genderStatus.point !== 2) {
-                            if(genderStatus.gender === 'male') {
-                                setGenderStatus({gender: 'female', point: 1})
-                            } else {
-                                setGenderStatus({gender: 'male', point: 1})
-                            }
-                        } else if(genderStatus.point === 1) {
-                            setGenderStatus({...genderStatus, point: 2})
-                        } else if(genderStatus.point === 2) {
-                            if(genderStatus.gender === 'male') {
-                                setGenderStatus({gender: 'female', point: 1})
-                            } else {
-                                setGenderStatus({gender: 'male', point: 1})
-                            }
-                        }
-                    }
-                } else if(genderStatus.point !== 1 && genderStatus.point !== 2) {
-                    if(genderStatus.gender === 'male') {
-                        setGenderStatus({gender: 'female', point: 1})
-                    } else {
-                        setGenderStatus({gender: 'male', point: 1})
-                    }
-                } else if(genderStatus.point === 1) {
-                    setGenderStatus({...genderStatus, point: 2})
-                } else if(genderStatus.point === 2) {
-                    if(genderStatus.gender === 'male') {
-                        setGenderStatus({gender: 'female', point: 1})
-                    } else {
-                        setGenderStatus({gender: 'male', point: 1})
-                    }
-                }
+    const checkGender = (count) => {
+        console.log(count)
+        if(count === 0) {
+            setGenderStatus(...[data[0]])
+            setGenderCounter(2)
+        }
+        else if((totalScore[0] === 8 && totalScore[1] < 8) || (totalScore[0] < 8 && totalScore[1] === 8)) {
+            setGenderStatus(...[data[1]])
+            setGenderCounter(4)
+        }
+        else {
+            setGenderStatus(...[data[genderCounter]])
+            setGenderCounter(genderCounter + 1)
+            if (count > 4) {
+                setGenderCounter(2);
             }
         }
     }
     useEffect(() => {
-        checkGender('inc')
+        checkGender(genderCounter)
     },[totalScore])
     return (
         <div className='score-container'>
