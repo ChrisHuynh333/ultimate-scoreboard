@@ -23,7 +23,7 @@ const Score = () => {
         }
         else if((totalScore[0] === 8 && totalScore[1] < 8) || (totalScore[0] < 8 && totalScore[1] === 8)) {
             if (halftime) {
-                console.log('hi')
+                
                 setGenderStatus(...[data[1]])
                 setGenderCounter(4)
                 setHalftime(false)
@@ -46,16 +46,23 @@ const Score = () => {
 
     const undoAction = () => {
         setIsUndo(true)
-        setTotalScore(pointsLog[(pointsLog.length - 1)].points)
-        setGenderCounter(pointsLog[(pointsLog.length - 1)].genderCounter)
-        let newArray = pointsLog.filter((element, index) => index < pointsLog.length - 1)
-        console.log(newArray)
-        setPointsLog(newArray)
-        console.log(pointsLog)
-        if(totalScore[0] === 0 && totalScore[1] === 0) {
+        if(pointsLog.length === 0) {
             setFirstRender(true)
-            setPointsLog([{points: totalScore, genderCounter}])
+            setTotalScore([0, 0])
         }
+        else {
+            setTotalScore(pointsLog[(pointsLog.length - 1)].points)
+            setGenderCounter(pointsLog[(pointsLog.length - 1)].genderCounter)
+            if (pointsLog.length > 0) {
+                console.log('hi')
+                let newArray = pointsLog.filter((element, index) => index < pointsLog.length - 1)
+                console.log(newArray)
+                setPointsLog(newArray)
+            }
+            console.log(pointsLog)
+        }
+        
+        
         if((totalScore[0] === 8 && totalScore[1] < 8) || (totalScore[0] < 8 && totalScore[1] === 8)) {
             setHalftime(true)
         }
@@ -69,6 +76,8 @@ const Score = () => {
         setFirstRender(false)
         console.log(pointsLog)
     },[totalScore])
+
+
     return (
         <div>
             <button onClick={() => undoAction()}>undo</button>
