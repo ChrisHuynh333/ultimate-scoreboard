@@ -8,6 +8,7 @@ const Score = () => {
     const [pointsLog, setPointsLog] = useState([{points: totalScore, genderCounter}])
     const [firstRender, setFirstRender] = useState(true)
     const [isUndo, setIsUndo] = useState(false)
+    const [halfTimePoint, setHalfTimePoint] = useState(null)
 
     const changeScore = (score, index) => {
         setIsUndo(false)
@@ -23,7 +24,7 @@ const Score = () => {
         }
         else if((totalScore[0] === 8 && totalScore[1] < 8) || (totalScore[0] < 8 && totalScore[1] === 8)) {
             if (halftime) {
-                
+                setHalfTimePoint(pointsLog.length)
                 setGenderStatus(...[data[1]])
                 setGenderCounter(4)
                 setHalftime(false)
@@ -65,6 +66,7 @@ const Score = () => {
         
         if((totalScore[0] === 8 && totalScore[1] < 8) || (totalScore[0] < 8 && totalScore[1] === 8)) {
             setHalftime(true)
+            setGenderStatus(...[data[1]])
         }
         
     }
