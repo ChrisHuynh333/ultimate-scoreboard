@@ -18,7 +18,6 @@ const Score = () => {
         const newScoreArray = [...totalScore]
         newScoreArray[index] = score + 1;
         setTotalScore(newScoreArray)
-        console.log('change score')
     }
     
     const checkGender = (count) => {
@@ -78,8 +77,6 @@ const Score = () => {
         
     }
     useEffect(() => {
-        console.log('useEffect')
-        console.log(totalScore)
         checkGender(genderCounter)
         if(!firstRender && !isUndo.current) {
             setPointsLog([...pointsLog, {points: totalScore, genderCounter}])
