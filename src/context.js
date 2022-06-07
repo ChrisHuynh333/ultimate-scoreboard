@@ -14,6 +14,7 @@ const AppProvider = ({ children }) => {
       genderStatus,
       setGenderStatus,
       coed,
+      setCoed,
       firstPointGender,
       setFirstPointGender
     }}>{children}</AppContext.Provider>
