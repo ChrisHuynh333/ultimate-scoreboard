@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState, useRef, forceUpdate} from 'react'
 import { useGlobalContext } from './context'
 import data from './data'
 
@@ -12,10 +12,13 @@ const Score = () => {
     const halfTimeHappened = useRef(false)
 
     const changeScore = (score, index) => {
-        isUndo.current = false
+        if (isUndo.current) {
+            isUndo.current = false
+        }
         const newScoreArray = [...totalScore]
         newScoreArray[index] = score + 1;
         setTotalScore(newScoreArray)
+        console.log('change score')
     }
     
     const checkGender = (count) => {
@@ -25,7 +28,6 @@ const Score = () => {
         }
         else if((totalScore[0] === 8 && totalScore[1] < 8) || (totalScore[0] < 8 && totalScore[1] === 8)) {
             if (!halfTimeHappened.current) {
-                console.log('hi')
                 halfTimePoint.current = pointsLog.length
                 setGenderStatus(...[data[1]])
                 setGenderCounter(4)
@@ -50,14 +52,15 @@ const Score = () => {
     }
 
     const undoAction = () => {
-        isUndo.current = true
         if(pointsLog.length === 0) {
             setFirstRender(true)
             setTotalScore([0, 0])
         }
         else {
-            setTotalScore(pointsLog[(pointsLog.length - 1)].points)
-            setGenderCounter(pointsLog[(pointsLog.length - 1)].genderCounter)
+            const prevPoints = pointsLog[(pointsLog.length - 2)].points
+            const prevGender = pointsLog[(pointsLog.length - 2)].genderCounter
+            setTotalScore(prevPoints)
+            setGenderCounter(prevGender)
             if (pointsLog.length > 0) {
                 let newArray = pointsLog.filter((element, index) => index < pointsLog.length - 1)
                 setPointsLog(newArray)
@@ -65,14 +68,18 @@ const Score = () => {
         }
         
         
-        if(pointsLog.length === halfTimePoint.current + 1) {
+        if(pointsLog.length === halfTimePoint.current + 2) {
             halfTimeHappened.current = false
             setGenderStatus([data[1]])
+        }
+        if (!isUndo.current) {
+            isUndo.current = true
         }
         
     }
     useEffect(() => {
-        console.log(halfTimeHappened.current)
+        console.log('useEffect')
+        console.log(totalScore)
         checkGender(genderCounter)
         if(!firstRender && !isUndo.current) {
             setPointsLog([...pointsLog, {points: totalScore, genderCounter}])
