@@ -4,7 +4,6 @@ const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
     const [totalScore, setTotalScore] = useState([0, 0])
     const [coed, setCoed] = useState(true)
-    const [halftime, setHalftime] = useState(true)
     const [firstPointGender, setFirstPointGender] = useState('male')
     const [genderStatus, setGenderStatus] = useState({gender: 'male', point: 'game start'})
 
@@ -15,8 +14,6 @@ const AppProvider = ({ children }) => {
       genderStatus,
       setGenderStatus,
       coed,
-      halftime,
-      setHalftime,
       firstPointGender,
       setFirstPointGender
     }}>{children}</AppContext.Provider>

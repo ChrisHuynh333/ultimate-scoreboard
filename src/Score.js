@@ -1,17 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { useGlobalContext } from './context'
 import data from './data'
 
 const Score = () => {
-    const {totalScore, setTotalScore, genderStatus, setGenderStatus, coed, halftime, firstPointGender, setHalftime} = useGlobalContext();
+    const {totalScore, setTotalScore, genderStatus, setGenderStatus, coed, firstPointGender} = useGlobalContext();
     const [genderCounter, setGenderCounter] = useState(0)
     const [pointsLog, setPointsLog] = useState([{points: totalScore, genderCounter}])
     const [firstRender, setFirstRender] = useState(true)
-    const [isUndo, setIsUndo] = useState(false)
-    const [halfTimePoint, setHalfTimePoint] = useState(null)
+    const isUndo = useRef(false)
+    const halfTimePoint = useRef(0)
+    const halfTimeHappened = useRef(false)
 
     const changeScore = (score, index) => {
-        setIsUndo(false)
+        isUndo.current = false
         const newScoreArray = [...totalScore]
         newScoreArray[index] = score + 1;
         setTotalScore(newScoreArray)
@@ -23,11 +24,14 @@ const Score = () => {
             setGenderCounter(2)
         }
         else if((totalScore[0] === 8 && totalScore[1] < 8) || (totalScore[0] < 8 && totalScore[1] === 8)) {
-            if (halftime) {
-                setHalfTimePoint(pointsLog.length)
+            if (!halfTimeHappened.current) {
+                console.log('hi')
+                halfTimePoint.current = pointsLog.length
                 setGenderStatus(...[data[1]])
                 setGenderCounter(4)
-                setHalftime(false)
+                if(!isUndo.current) {
+                    halfTimeHappened.current = true
+                }
             } else {
                 setGenderStatus(...[data[genderCounter]])
                 setGenderCounter(genderCounter + 1)
@@ -46,7 +50,7 @@ const Score = () => {
     }
 
     const undoAction = () => {
-        setIsUndo(true)
+        isUndo.current = true
         if(pointsLog.length === 0) {
             setFirstRender(true)
             setTotalScore([0, 0])
@@ -55,28 +59,25 @@ const Score = () => {
             setTotalScore(pointsLog[(pointsLog.length - 1)].points)
             setGenderCounter(pointsLog[(pointsLog.length - 1)].genderCounter)
             if (pointsLog.length > 0) {
-                console.log('hi')
                 let newArray = pointsLog.filter((element, index) => index < pointsLog.length - 1)
-                console.log(newArray)
                 setPointsLog(newArray)
             }
-            console.log(pointsLog)
         }
         
         
-        if((totalScore[0] === 8 && totalScore[1] < 8) || (totalScore[0] < 8 && totalScore[1] === 8)) {
-            setHalftime(true)
-            setGenderStatus(...[data[1]])
+        if(pointsLog.length === halfTimePoint.current + 1) {
+            halfTimeHappened.current = false
+            setGenderStatus([data[1]])
         }
         
     }
     useEffect(() => {
+        console.log(halfTimeHappened.current)
         checkGender(genderCounter)
-        if(!firstRender && !isUndo) {
+        if(!firstRender && !isUndo.current) {
             setPointsLog([...pointsLog, {points: totalScore, genderCounter}])
         }
         setFirstRender(false)
-        console.log(pointsLog)
     },[totalScore])
 
 
