@@ -9,6 +9,7 @@ const AppProvider = ({ children }) => {
     const [trackingGender, setTrackingGender] = useState(true)
     const [halftimePoint, setHalftimePoint] = useState(8)
     const [isGameStartModalOpen, setIsGameStartModalOpen] = useState(true)
+    const [noHalftime, setNoHalftime] = useState(false)
 
     
   return <AppContext.Provider value={{
@@ -25,7 +26,9 @@ const AppProvider = ({ children }) => {
       halftimePoint,
       setHalftimePoint,
       isGameStartModalOpen,
-      setIsGameStartModalOpen
+      setIsGameStartModalOpen,
+      noHalftime,
+      setNoHalftime
     }}>{children}</AppContext.Provider>
 }
 export const useGlobalContext = () => {

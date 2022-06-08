@@ -3,7 +3,7 @@ import { useGlobalContext } from './context'
 import data from './data'
 
 const Score = () => {
-    const {totalScore, setTotalScore, genderStatus, setGenderStatus, coed, firstPointGender, isGameStartModalOpen, halftimePoint, trackingGender} = useGlobalContext();
+    const {totalScore, setTotalScore, genderStatus, setGenderStatus, coed, firstPointGender, isGameStartModalOpen, halftimePoint, trackingGender, noHalftime} = useGlobalContext();
     const [genderCounter, setGenderCounter] = useState(0)
     const [pointsLog, setPointsLog] = useState([{points: totalScore, genderCounter}])
     const [firstRender, setFirstRender] = useState(true)
@@ -26,7 +26,7 @@ const Score = () => {
             setGenderStatus(...[genderData[0]])
             setGenderCounter(2)
         }
-        else if((totalScore[0] === halftimePoint && totalScore[1] < halftimePoint) || (totalScore[0] < halftimePoint && totalScore[1] === halftimePoint)) {
+        else if(((totalScore[0] === halftimePoint && totalScore[1] < halftimePoint) || (totalScore[0] < halftimePoint && totalScore[1] === halftimePoint)) && !noHalftime) {
             if (!halftimeHappened.current) {
                 halftimePointInLog.current = pointsLog.length
                 setGenderStatus(...[genderData[1]])
