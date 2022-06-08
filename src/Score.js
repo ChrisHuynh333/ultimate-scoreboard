@@ -3,7 +3,7 @@ import { useGlobalContext } from './context'
 import data from './data'
 
 const Score = () => {
-    const {totalScore, setTotalScore, genderStatus, setGenderStatus, coed, firstPointGender, isGameStartModalOpen, halftimePoint} = useGlobalContext();
+    const {totalScore, setTotalScore, genderStatus, setGenderStatus, coed, firstPointGender, isGameStartModalOpen, halftimePoint, trackingGender} = useGlobalContext();
     const [genderCounter, setGenderCounter] = useState(0)
     const [pointsLog, setPointsLog] = useState([{points: totalScore, genderCounter}])
     const [firstRender, setFirstRender] = useState(true)
@@ -108,7 +108,9 @@ const Score = () => {
                         </div>
                     )
                 })}
-                {genderStatus.gender} {genderStatus.point}
+                <div className={trackingGender ? "active" : "not-active"}>
+                    {genderStatus.gender} {genderStatus.point}
+                </div>
             </div>
             </div>
     )

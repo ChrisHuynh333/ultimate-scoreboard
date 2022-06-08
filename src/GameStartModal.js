@@ -9,7 +9,7 @@ import { useGlobalContext } from "./context"
 const GameStartModal = () => {
     const {coed, setCoed, trackingGender, setTrackingGender, firstPointGender, setFirstPointGender, halftimePoint, setHalftimePoint, isGameStartModalOpen, setIsGameStartModalOpen} = useGlobalContext()
     const [customCap, setCustomCap] = useState(false)
-    
+    const [noHalftime, setNoHalftime] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -22,6 +22,7 @@ const GameStartModal = () => {
     const handleGenderChange = (e) => {
         setFirstPointGender(e.target.value)
     }
+    
 
     return (
         <div className={isGameStartModalOpen ? "active" : "not-active"}>
@@ -58,10 +59,10 @@ const GameStartModal = () => {
                         Game Cap: 
                     </span>
                     <span>
-                        <label for="capFifteen">15<input type='radio' name="cap" id="capFifteen" value={15} onClick={() => setCustomCap(false)} onChange={e => handleScoreChange(e)} defaultChecked/></label>
-                        <label for="capThirteen">13<input type='radio' name="cap" id="capThirteen" value={13} onClick={() => setCustomCap(false)} onChange={e => handleScoreChange(e)} /></label>
-                        <label for="capNoCap">No cap<input type='radio' name="cap" id="capNoCap" onClick={() => setCustomCap(false)} /></label>
-                        <label for="capCustomCap">Custom Cap<input type='radio' name="cap" id="capCustomCap" onClick={() => setCustomCap(true)} /></label>
+                        <label for="capFifteen">15<input type='radio' name="cap" id="capFifteen" value={15} onClick={() => {setCustomCap(false); setNoHalftime(false)}} onChange={e => handleScoreChange(e)} defaultChecked/></label>
+                        <label for="capThirteen">13<input type='radio' name="cap" id="capThirteen" value={13} onClick={() => {setCustomCap(false); setNoHalftime(false)}} onChange={e => handleScoreChange(e)} /></label>
+                        <label for="capNoCap">No cap<input type='radio' name="cap" id="capNoCap" onClick={() => {setCustomCap(false); setNoHalftime(true)}} /></label>
+                        <label for="capCustomCap">Custom Cap<input type='radio' name="cap" id="capCustomCap" onClick={() => {setCustomCap(false); setNoHalftime(false)}} /></label>
                     </span>
                 </div>
                 <div className={customCap ? "active" : "not-active"}>
@@ -77,8 +78,8 @@ const GameStartModal = () => {
                         Halftime Point:
                     </span>
                     <span>
-                        <label for="dynamicHalftimePoint">{halftimePoint}<input type='radio' name="halfTime" id="dynamicHalftimePoint" defaultChecked /></label>
-                        <label for="noHalftime">No Halftime<input type='radio' name="halfTime" id="noHalftime" /></label>
+                        <label for="dynamicHalftimePoint">{halftimePoint}<input type='radio' name="halfTime" id="dynamicHalftimePoint" checked={noHalftime ? null : true}defaultChecked /></label>
+                        <label for="noHalftime">No Halftime<input type='radio' name="halfTime" id="noHalftime" checked={noHalftime ? true : null}/></label>
                     </span>
                 </div>
                 <div>
