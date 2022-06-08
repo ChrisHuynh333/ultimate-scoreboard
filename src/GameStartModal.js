@@ -3,25 +3,25 @@
 // Cap 15 / 13 / No cap / Custom cap
 // Halftime dynamic / No halftime
 
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import { useGlobalContext } from "./context"
 
 const GameStartModal = () => {
-    const {coed, setCoed, trackingGender, setTrackingGender, setFirstPointGender, halftimePoint, setHalftimePoint} = useGlobalContext()
+    const {coed, setCoed, trackingGender, setTrackingGender, firstPointGender, setFirstPointGender, halftimePoint, setHalftimePoint, isGameStartModalOpen, setIsGameStartModalOpen} = useGlobalContext()
     const [customCap, setCustomCap] = useState(false)
     
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setIsGameStartModalOpen(false)
     }
 
     const handleScoreChange = (e) => {
         setHalftimePoint(e.target.value)
     }
 
-
     return (
-        <div>
+        <div className={isGameStartModalOpen ? "active" : "not-active"}>
             <form onSubmit={handleSubmit}>
                 <div>
                     <span>

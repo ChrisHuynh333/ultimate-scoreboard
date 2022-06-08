@@ -3,10 +3,11 @@ import { useGlobalContext } from './context'
 import data from './data'
 
 const Score = () => {
-    const {totalScore, setTotalScore, genderStatus, setGenderStatus, coed, firstPointGender} = useGlobalContext();
+    const {totalScore, setTotalScore, genderStatus, setGenderStatus, coed, firstPointGender, isGameStartModalOpen} = useGlobalContext();
     const [genderCounter, setGenderCounter] = useState(0)
     const [pointsLog, setPointsLog] = useState([{points: totalScore, genderCounter}])
     const [firstRender, setFirstRender] = useState(true)
+    const [genderData, setGenderData] = useState([])
     const isUndo = useRef(false)
     const halfTimePoint = useRef(0)
     const halfTimeHappened = useRef(false)
@@ -22,19 +23,19 @@ const Score = () => {
     
     const checkGender = (count) => {
         if(totalScore[0] === 0 && totalScore[1] === 0) {
-            setGenderStatus(...[data[0]])
+            setGenderStatus(...[genderData[0]])
             setGenderCounter(2)
         }
         else if((totalScore[0] === 8 && totalScore[1] < 8) || (totalScore[0] < 8 && totalScore[1] === 8)) {
             if (!halfTimeHappened.current) {
                 halfTimePoint.current = pointsLog.length
-                setGenderStatus(...[data[1]])
+                setGenderStatus(...[genderData[1]])
                 setGenderCounter(4)
                 if(!isUndo.current) {
                     halfTimeHappened.current = true
                 }
             } else {
-                setGenderStatus(...[data[genderCounter]])
+                setGenderStatus(...[genderData[genderCounter]])
                 setGenderCounter(genderCounter + 1)
                 if (count > 4) {
                     setGenderCounter(2);
@@ -42,7 +43,7 @@ const Score = () => {
             }
         }
         else {
-            setGenderStatus(...[data[genderCounter]])
+            setGenderStatus(...[genderData[genderCounter]])
             setGenderCounter(genderCounter + 1)
             if (count > 4) {
                 setGenderCounter(2);
@@ -69,7 +70,7 @@ const Score = () => {
         
         if(pointsLog.length === halfTimePoint.current + 2) {
             halfTimeHappened.current = false
-            setGenderStatus([data[1]])
+            setGenderStatus([genderData[1]])
         }
         if (!isUndo.current) {
             isUndo.current = true
@@ -84,9 +85,20 @@ const Score = () => {
         setFirstRender(false)
     },[totalScore])
 
+    useEffect(() => {
+        let correctData = []
+        if(firstPointGender === 'male') {
+            correctData = data[0]
+        } else {
+            correctData = data[1]
+        }
+        setGenderData(correctData)
+        setGenderStatus(correctData[0])
+        console.log(correctData[0])
+    }, [isGameStartModalOpen])
 
     return (
-        <div>
+        <div className={isGameStartModalOpen ? "not-active" : "active"}>
             <button onClick={() => undoAction()}>undo</button>
             <div className='score-container'>
                 {totalScore.map((score, index) => {

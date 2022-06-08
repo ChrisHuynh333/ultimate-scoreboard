@@ -4,10 +4,11 @@ const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
     const [totalScore, setTotalScore] = useState([0, 0])
     const [coed, setCoed] = useState(true)
-    const [firstPointGender, setFirstPointGender] = useState('male')
-    const [genderStatus, setGenderStatus] = useState({gender: 'male', point: 'game start'})
+    const [firstPointGender, setFirstPointGender] = useState(null)
+    const [genderStatus, setGenderStatus] = useState({gender: 'male', point: 1})
     const [trackingGender, setTrackingGender] = useState(true)
     const [halftimePoint, setHalftimePoint] = useState(15)
+    const [isGameStartModalOpen, setIsGameStartModalOpen] = useState(true)
 
     
   return <AppContext.Provider value={{
@@ -22,7 +23,9 @@ const AppProvider = ({ children }) => {
       trackingGender,
       setTrackingGender,
       halftimePoint,
-      setHalftimePoint
+      setHalftimePoint,
+      isGameStartModalOpen,
+      setIsGameStartModalOpen
     }}>{children}</AppContext.Provider>
 }
 export const useGlobalContext = () => {
