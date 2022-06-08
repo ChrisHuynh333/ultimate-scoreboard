@@ -6,17 +6,19 @@
 import React, {useState} from "react"
 import { useGlobalContext } from "./context"
 
-
-
-const handleSubmit = (e) => {
-    e.preventDefault()
-}
-
 const GameStartModal = () => {
     const {coed, setCoed} = useGlobalContext()
     const [trackingGender, setTrackingGender] = useState(true)
     const [customCap, setCustomCap] = useState(false)
+    const [halfTimePoint, setHalftimePoint] = useState(15)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+    }
     
+    const handleScoreChange = (e) => {
+        setHalftimePoint(e.target.value)
+    }
 
     return (
         <div>
@@ -53,8 +55,8 @@ const GameStartModal = () => {
                         Game Cap: 
                     </span>
                     <span>
-                        <label for="capFifteen">15<input type='radio' name="cap" id="capFifteen" value="15" onClick={() => setCustomCap(false)} defaultChecked/></label>
-                        <label for="capThirteen">13<input type='radio' name="cap" id="capThirteen" value="13" onClick={() => setCustomCap(false)} /></label>
+                        <label for="capFifteen">15<input type='radio' name="cap" id="capFifteen" value={15} onClick={() => setCustomCap(false)} onChange={e => handleScoreChange(e)} defaultChecked/></label>
+                        <label for="capThirteen">13<input type='radio' name="cap" id="capThirteen" value={13} onClick={() => setCustomCap(false)} onChange={e => handleScoreChange(e)} /></label>
                         <label for="capNoCap">No cap<input type='radio' name="cap" id="capNoCap" onClick={() => setCustomCap(false)} /></label>
                         <label for="capCustomCap">Custom Cap<input type='radio' name="cap" id="capCustomCap" onClick={() => setCustomCap(true)} /></label>
                     </span>
@@ -64,7 +66,7 @@ const GameStartModal = () => {
                         Custom Cap:
                     </span>
                     <span>
-                        <input type='number' />
+                        <input type='number' onChange={e => handleScoreChange(e)} />
                     </span>
                 </div>
                 <div>
@@ -72,7 +74,7 @@ const GameStartModal = () => {
                         Halftime Point:
                     </span>
                     <span>
-                        <label for="dynamicHalftimePoint">{Math.ceil(15/2)}<input type='radio' name="halfTime" id="dynamicHalftimePoint" defaultChecked /></label>
+                        <label for="dynamicHalftimePoint">{Math.ceil(halfTimePoint/2)}<input type='radio' name="halfTime" id="dynamicHalftimePoint" defaultChecked /></label>
                         <label for="noHalftime">No Halftime<input type='radio' name="halfTime" id="noHalftime" /></label>
                     </span>
                 </div>
