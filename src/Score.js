@@ -3,11 +3,13 @@ import { useGlobalContext } from './context'
 import data from './data'
 
 const Score = () => {
-    const {totalScore, setTotalScore, genderStatus, setGenderStatus, coed, firstPointGender, isGameStartModalOpen, halftimePoint, trackingGender, noHalftime} = useGlobalContext();
+    const {totalScore, setTotalScore, genderStatus, setGenderStatus, firstPointGender, isGameStartModalOpen, halftimePoint, trackingGender, noHalftime, setIsGameStartModalOpen, 
+    setCoed, setFirstPointGender, setTrackingGender, setHalftimePoint, setNoHalftime} = useGlobalContext();
     const [genderCounter, setGenderCounter] = useState(0)
     const [pointsLog, setPointsLog] = useState([{points: totalScore, genderCounter}])
     const [firstRender, setFirstRender] = useState(true)
     const [genderData, setGenderData] = useState([])
+    const [confirmModalOpen, setConfirmModalOpen] = useState(false)
     const isUndo = useRef(false)
     const halftimePointInLog = useRef(0)
     const halftimeHappened = useRef(false)
@@ -75,8 +77,20 @@ const Score = () => {
         if (!isUndo.current) {
             isUndo.current = true
         }
-        
     }
+
+    const newGame = () => {
+        setTotalScore([0, 0])
+        setCoed(true)
+        setFirstPointGender(null)
+        setGenderStatus({})
+        setTrackingGender(true)
+        setHalftimePoint(8)
+        setIsGameStartModalOpen(true)
+        setNoHalftime(false)
+        setConfirmModalOpen(false)
+    }
+
     useEffect(() => {
         checkGender(genderCounter)
         if(!firstRender && !isUndo.current) {
@@ -99,6 +113,11 @@ const Score = () => {
 
     return (
         <div className={isGameStartModalOpen ? "not-active" : "active"}>
+            <div className={confirmModalOpen ? "active" : "not-active"}>
+                <div>Start new game?</div>
+                <button onClick={() => newGame()}>Confirm</button>
+                <button onClick={() => setConfirmModalOpen(false)}>No</button>
+            </div>
             {totalScore[0] + totalScore[1] === 0 ? null : <button onClick={() => undoAction()}>undo</button>}
             <div className='score-container'>
                 {totalScore.map((score, index) => {
@@ -112,6 +131,7 @@ const Score = () => {
                     {genderStatus.gender} {genderStatus.point}
                 </div>
             </div>
+            <button onClick={() => setConfirmModalOpen(true)}>New Game</button>
         </div>
     )
 }
