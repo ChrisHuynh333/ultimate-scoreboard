@@ -17,7 +17,10 @@ const GameStartModal = () => {
     }
 
     const handleScoreChange = (e) => {
-        setHalftimePoint(e.target.value)
+        setHalftimePoint(Math.ceil(e.target.value / 2))
+    }
+    const handleGenderChange = (e) => {
+        setFirstPointGender(e.target.value)
     }
 
     return (
@@ -46,8 +49,8 @@ const GameStartModal = () => {
                         Starting Gender: 
                     </span>
                     <span>
-                        <label for="maleStarting">Male<input type='radio' name="startingGender" id="maleStarting" onClick={() => setFirstPointGender("male")} /></label>
-                        <label for="femaleStarting">Female<input type='radio' name="startingGender" id="femaleStarting" onClick={() => setFirstPointGender("female")} /></label>
+                    <label for="femaleStarting">Female<input type='radio' name="startingGender" id="femaleStarting" value="female" onChange={e => handleGenderChange(e)} defaultChecked/></label>
+                        <label for="maleStarting">Male<input type='radio' name="startingGender" id="maleStarting" value="male" onChange={e => handleGenderChange(e)} /></label>
                     </span>
                 </div>
                 <div>
@@ -74,7 +77,7 @@ const GameStartModal = () => {
                         Halftime Point:
                     </span>
                     <span>
-                        <label for="dynamicHalftimePoint">{Math.ceil(halftimePoint/2)}<input type='radio' name="halfTime" id="dynamicHalftimePoint" defaultChecked /></label>
+                        <label for="dynamicHalftimePoint">{halftimePoint}<input type='radio' name="halfTime" id="dynamicHalftimePoint" defaultChecked /></label>
                         <label for="noHalftime">No Halftime<input type='radio' name="halfTime" id="noHalftime" /></label>
                     </span>
                 </div>

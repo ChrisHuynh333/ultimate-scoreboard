@@ -5,9 +5,9 @@ const AppProvider = ({ children }) => {
     const [totalScore, setTotalScore] = useState([0, 0])
     const [coed, setCoed] = useState(true)
     const [firstPointGender, setFirstPointGender] = useState(null)
-    const [genderStatus, setGenderStatus] = useState({gender: 'male', point: 1})
+    const [genderStatus, setGenderStatus] = useState({})
     const [trackingGender, setTrackingGender] = useState(true)
-    const [halftimePoint, setHalftimePoint] = useState(15)
+    const [halftimePoint, setHalftimePoint] = useState(8)
     const [isGameStartModalOpen, setIsGameStartModalOpen] = useState(true)
 
     
