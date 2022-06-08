@@ -99,7 +99,7 @@ const Score = () => {
 
     return (
         <div className={isGameStartModalOpen ? "not-active" : "active"}>
-            <button onClick={() => undoAction()}>undo</button>
+            {totalScore[0] + totalScore[1] === 0 ? null : <button onClick={() => undoAction()}>undo</button>}
             <div className='score-container'>
                 {totalScore.map((score, index) => {
                     return (
@@ -112,7 +112,7 @@ const Score = () => {
                     {genderStatus.gender} {genderStatus.point}
                 </div>
             </div>
-            </div>
+        </div>
     )
 }
 

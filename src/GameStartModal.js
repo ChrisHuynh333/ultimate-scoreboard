@@ -1,9 +1,4 @@
-// Coed
-// Track Gender
-// Cap 15 / 13 / No cap / Custom cap
-// Halftime dynamic / No halftime
-
-import React, {useEffect, useState} from "react"
+import React, { useState } from "react"
 import { useGlobalContext } from "./context"
 
 const GameStartModal = () => {
