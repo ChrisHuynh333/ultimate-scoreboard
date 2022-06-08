@@ -1,3 +1,22 @@
+
+
+html, body {
+  margin: 0; padding: 0; height: 100%; width: 100%; background-color: rgb(241, 241, 241);
+}
+
+.game-start-modal-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin-top: -2%;
+  background-color: rgb(241, 241, 241);
+}
+
+.game-start-modal-form {
+  
+}
+
 .not-active {
   display: none;
 }

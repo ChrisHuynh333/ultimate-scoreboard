@@ -19,8 +19,8 @@ const GameStartModal = () => {
     
 
     return (
-        <div className={isGameStartModalOpen ? "active" : "not-active"}>
-            <form onSubmit={handleSubmit}>
+        <div className={isGameStartModalOpen ? "game-start-modal-container" : "game-start-modal-container not-active"}>
+            <form className="game-start-modal-form" onSubmit={handleSubmit}>
                 <div>
                     <span>
                         Gender Setting:
