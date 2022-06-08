@@ -7,18 +7,18 @@ import React, {useState} from "react"
 import { useGlobalContext } from "./context"
 
 const GameStartModal = () => {
-    const {coed, setCoed} = useGlobalContext()
-    const [trackingGender, setTrackingGender] = useState(true)
+    const {coed, setCoed, trackingGender, setTrackingGender, setFirstPointGender, halftimePoint, setHalftimePoint} = useGlobalContext()
     const [customCap, setCustomCap] = useState(false)
-    const [halfTimePoint, setHalftimePoint] = useState(15)
+    
 
     const handleSubmit = (e) => {
         e.preventDefault()
     }
-    
+
     const handleScoreChange = (e) => {
         setHalftimePoint(e.target.value)
     }
+
 
     return (
         <div>
@@ -28,7 +28,7 @@ const GameStartModal = () => {
                         Gender Setting:
                     </span>
                     <span>
-                        <label for="coed">Coed<input type='radio' name="gender" id="coed" onClick={() => {setCoed(true); setTrackingGender(true)}}defaultChecked/></label>
+                        <label for="coed">Coed<input type='radio' name="gender" id="coed" onClick={() => {setCoed(true); setTrackingGender(true)}} defaultChecked/></label>
                         <label for="singleGender">Single Gender<input type='radio' name="gender" id="singleGender" onClick={() => {setCoed(false); setTrackingGender(false)}} /></label>
                     </span>
                 </div>
@@ -46,8 +46,8 @@ const GameStartModal = () => {
                         Starting Gender: 
                     </span>
                     <span>
-                        <label for="maleStarting">Male<input type='radio' name="startingGender" id="maleStarting" /></label>
-                        <label for="femaleStarting">Female<input type='radio' name="startingGender" id="femaleStarting" /></label>
+                        <label for="maleStarting">Male<input type='radio' name="startingGender" id="maleStarting" onClick={() => setFirstPointGender("male")} /></label>
+                        <label for="femaleStarting">Female<input type='radio' name="startingGender" id="femaleStarting" onClick={() => setFirstPointGender("female")} /></label>
                     </span>
                 </div>
                 <div>
@@ -74,7 +74,7 @@ const GameStartModal = () => {
                         Halftime Point:
                     </span>
                     <span>
-                        <label for="dynamicHalftimePoint">{Math.ceil(halfTimePoint/2)}<input type='radio' name="halfTime" id="dynamicHalftimePoint" defaultChecked /></label>
+                        <label for="dynamicHalftimePoint">{Math.ceil(halftimePoint/2)}<input type='radio' name="halfTime" id="dynamicHalftimePoint" defaultChecked /></label>
                         <label for="noHalftime">No Halftime<input type='radio' name="halfTime" id="noHalftime" /></label>
                     </span>
                 </div>

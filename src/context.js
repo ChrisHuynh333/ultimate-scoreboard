@@ -6,6 +6,8 @@ const AppProvider = ({ children }) => {
     const [coed, setCoed] = useState(true)
     const [firstPointGender, setFirstPointGender] = useState('male')
     const [genderStatus, setGenderStatus] = useState({gender: 'male', point: 'game start'})
+    const [trackingGender, setTrackingGender] = useState(true)
+    const [halftimePoint, setHalftimePoint] = useState(15)
 
     
   return <AppContext.Provider value={{
@@ -16,7 +18,11 @@ const AppProvider = ({ children }) => {
       coed,
       setCoed,
       firstPointGender,
-      setFirstPointGender
+      setFirstPointGender,
+      trackingGender,
+      setTrackingGender,
+      halftimePoint,
+      setHalftimePoint
     }}>{children}</AppContext.Provider>
 }
 export const useGlobalContext = () => {
