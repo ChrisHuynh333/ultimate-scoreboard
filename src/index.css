@@ -1,20 +1,42 @@
 
 
 html, body {
-  margin: 0; padding: 0; height: 100%; width: 100%; background-color: rgb(241, 241, 241);
+  margin: 0; 
+  padding: 0; 
+  height: 100%; 
+  width: 100%; 
+  background: linear-gradient(90deg, #c2edf0 50%, #f7c7c7 50%);
 }
 
 .game-start-modal-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin-top: -2%;
-  background-color: rgb(241, 241, 241);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(238, 238, 238);
+  padding: 10px;
+  font-size: 26px;
 }
 
 .game-start-modal-form {
   
+}
+
+.game-start-modal-radio-btn input[type="radio"] {
+  display: none;
+}
+
+.game-start-modal-radio-btn label {
+  display: inline-block;
+  background-color: rgb(172, 8, 8);
+  padding: 4px 11px;
+  font-family: Arial;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.game-start-modal-radio-btn input[type="radio"]:checked+label {
+  background-color: rgb(35, 216, 111);
 }
 
 .not-active {
