@@ -14,30 +14,82 @@ html, body {
   top: 50%;
   transform: translate(-50%, -50%);
   background-color: rgb(238, 238, 238);
-  padding: 10px;
-  font-size: 26px;
+  padding: 10px 50px;
+  font-size: 14px;
+  font-family: Arial;
+  box-shadow: 0 1rem 2rem #000a;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f7c7c7,#c2edf0);
 }
 
 .game-start-modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-start-modal-row {
+  display: flex;
+  text-align: center;
+  width: 500px;
+}
+
+.game-start-modal-row-header {
+  margin: 8px auto;
+  font-weight: 600;
+  color: rgb(94, 94, 94);
+}
+
+.game-start-modal-radio-btn {
+  margin: 0 auto;
   
+}
+.game-start-modal-radio-btn > label {
+  width: 80px;
+  height: 18px;
+  margin: 0 3px;
 }
 
 .game-start-modal-radio-btn input[type="radio"] {
   display: none;
 }
 
+.game-start-modal-row-header > p {
+  margin: 0;
+  padding: 0;
+}
+
 .game-start-modal-radio-btn label {
   display: inline-block;
-  background-color: rgb(172, 8, 8);
+  background-color: rgb(228, 228, 228);
   padding: 4px 11px;
   font-family: Arial;
-  font-size: 16px;
+  font-size: 12px;
   cursor: pointer;
+  border: solid;
+  border-width: 0.1px;
+  
 }
 
 .game-start-modal-radio-btn input[type="radio"]:checked+label {
-  background-color: rgb(35, 216, 111);
+  background-color: rgb(158, 221, 250);
+  border-style: solid;
+  border-color: rgb(23, 140, 194);
+  border-width: 2px;
 }
+
+.game-start-modal-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px; 
+}
+
+.game-start-modal-btn {
+  padding: 10px 30px;
+  border: 2px solid rgb(124, 194, 226);
+  background-color: rgb(158, 221, 250);
+  border-radius: 12px;
+}
+
 
 .not-active {
   display: none;
