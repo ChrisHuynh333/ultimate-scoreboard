@@ -4,13 +4,20 @@ import { useGlobalContext } from "./context"
 const GameStartModal = () => {
     const {coed, setCoed, trackingGender, setTrackingGender, setFirstPointGender, halftimePoint, setHalftimePoint, isGameStartModalOpen, setIsGameStartModalOpen, noHalftime, setNoHalftime} = useGlobalContext()
     const [customCap, setCustomCap] = useState(false)
+    const [customCapError, setCustomCapError] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setIsGameStartModalOpen(false)
+        if(halftimePoint <= 0) {
+            setCustomCapError(true)
+        } else {
+            setIsGameStartModalOpen(false)
+            setCustomCapError(false)
+        }
     }
 
     const handleScoreChange = (e) => {
+        console.log(e.target.value)
         setHalftimePoint(Math.ceil(e.target.value / 2))
     }
     const handleGenderChange = (e) => {
@@ -65,7 +72,7 @@ const GameStartModal = () => {
                         <label for="capThirteen">13</label>
                         <input type='radio' name="cap" id="capNoCap" onClick={() => {setCustomCap(false); setNoHalftime(true)}} />
                         <label for="capNoCap">No cap</label>
-                        <input type='radio' name="cap" id="capCustomCap" onClick={() => {setCustomCap(true); setNoHalftime(false)}} />
+                        <input type='radio' name="cap" id="capCustomCap" onClick={() => {setCustomCap(true); setNoHalftime(false); setHalftimePoint(0)}} />
                         <label for="capCustomCap">Custom Cap</label>
                     </span>
                 </div>
@@ -87,6 +94,9 @@ const GameStartModal = () => {
                         <input type='radio' name="halfTime" id="noHalftime" onClick={() => setNoHalftime(true)} checked={noHalftime ? true : null}/>
                         <label for="noHalftime">No Halftime</label>
                     </span>
+                </div>
+                <div>
+                    {customCapError ? "Please enter a points cap." : null}
                 </div>
                 <div>
                     <button type="submit">Start Game</button>
