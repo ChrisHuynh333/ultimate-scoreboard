@@ -91,6 +91,28 @@ html, body {
 }
 
 
+/* -----SCORE.JS STYLING ------- */
+
+.score-container {
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  flex-direction: column;
+  height: 100vh;
+}
+
+.scores {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+  justify-content: space-around;
+}
+.score-1 {
+}
+
+.score-2 {
+}
+
 .not-active {
   display: none;
 }

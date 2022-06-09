@@ -118,20 +118,25 @@ const Score = () => {
                 <button onClick={() => newGame()}>Confirm</button>
                 <button onClick={() => setConfirmModalOpen(false)}>No</button>
             </div>
-            {totalScore[0] + totalScore[1] === 0 ? null : <button onClick={() => undoAction()}>undo</button>}
-            <div className='score-container'>
+            <div className="score-container">
+            <div className={totalScore[0] + totalScore[1] === 0 ? null : "inactive"}>
+                <button onClick={() => undoAction()}>undo</button>
+            </div>
+            <div className="scores">
                 {totalScore.map((score, index) => {
                     return (
-                        <div key={index}>
+                        <div className={`score-${index}`} key={index}>
                             <button onClick={() => changeScore(score, index)}>{score}</button>
                         </div>
                     )
                 })}
-                <div className={trackingGender ? "active" : "not-active"}>
-                    {genderStatus.gender} {genderStatus.point}
-                </div>
             </div>
+            <div className={trackingGender ? null : "not-active"}>
+                {genderStatus.gender} {genderStatus.point}
+            </div>
+            
             <button onClick={() => setConfirmModalOpen(true)}>New Game</button>
+            </div>
         </div>
     )
 }
