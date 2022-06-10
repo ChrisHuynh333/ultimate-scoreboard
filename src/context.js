@@ -10,6 +10,7 @@ const AppProvider = ({ children }) => {
     const [halftimePoint, setHalftimePoint] = useState(8)
     const [isGameStartModalOpen, setIsGameStartModalOpen] = useState(true)
     const [noHalftime, setNoHalftime] = useState(false)
+    const [teamNames, setTeamNames] = useState(["Us", "Them"])
 
     
   return <AppContext.Provider value={{
@@ -28,7 +29,9 @@ const AppProvider = ({ children }) => {
       isGameStartModalOpen,
       setIsGameStartModalOpen,
       noHalftime,
-      setNoHalftime
+      setNoHalftime,
+      teamNames,
+      setTeamNames
     }}>{children}</AppContext.Provider>
 }
 export const useGlobalContext = () => {

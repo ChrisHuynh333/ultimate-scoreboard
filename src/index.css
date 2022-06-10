@@ -101,6 +101,16 @@ html, body {
   height: 100vh;
 }
 
+.team-name-container {
+  display: table;
+  width: 100%;
+}
+
+.team-name-text {
+  display: table-cell;
+  text-align: center;
+}
+
 .scores {
   display: flex;
   margin-top: auto;

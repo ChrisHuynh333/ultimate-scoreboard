@@ -4,7 +4,7 @@ import data from './data'
 
 const Score = () => {
     const {totalScore, setTotalScore, genderStatus, setGenderStatus, firstPointGender, isGameStartModalOpen, halftimePoint, trackingGender, noHalftime, setIsGameStartModalOpen, 
-    setCoed, setFirstPointGender, setTrackingGender, setHalftimePoint, setNoHalftime} = useGlobalContext();
+    setCoed, setFirstPointGender, setTrackingGender, setHalftimePoint, setNoHalftime, teamNames, setTeamNames} = useGlobalContext();
     const [genderCounter, setGenderCounter] = useState(0)
     const [pointsLog, setPointsLog] = useState([{points: totalScore, genderCounter}])
     const [firstRender, setFirstRender] = useState(true)
@@ -79,6 +79,12 @@ const Score = () => {
         }
     }
 
+    const handleTeamChange = (newName, index) => {
+        const newTeamNames = [...teamNames]
+        newTeamNames[index] = newName
+        setTeamNames(newTeamNames)
+    }
+
     const newGame = () => {
         setTotalScore([0, 0])
         setCoed(true)
@@ -119,23 +125,33 @@ const Score = () => {
                 <button onClick={() => setConfirmModalOpen(false)}>No</button>
             </div>
             <div className="score-container">
-            <div className={totalScore[0] + totalScore[1] === 0 ? null : "inactive"}>
-                <button onClick={() => undoAction()}>undo</button>
-            </div>
-            <div className="scores">
-                {totalScore.map((score, index) => {
-                    return (
-                        <div className={`score-${index}`} key={index}>
-                            <button onClick={() => changeScore(score, index)}>{score}</button>
-                        </div>
-                    )
-                })}
-            </div>
-            <div className={trackingGender ? null : "not-active"}>
-                {genderStatus.gender} {genderStatus.point}
-            </div>
-            
-            <button onClick={() => setConfirmModalOpen(true)}>New Game</button>
+                <div className={totalScore[0] + totalScore[1] === 0 ? null : "inactive"}>
+                    <button onClick={() => undoAction()}>undo</button>
+                </div>
+                    <form className="team-name-container">
+                        {teamNames.map((teamName, index) => {
+                            return (
+                                <span className="team-name-text">
+                                    <input key={index}  onChange={e => handleTeamChange(e.target.value, index)} onClick={(e) => e.target.select()} type="text" value={teamName}/>
+                                </span>
+                            )
+                        })}
+                    </form>
+                <div className="scores">
+                    {totalScore.map((score, index) => {
+                        return (
+                            <div className={`score-${index}`} key={index}>
+                                <button onClick={() => changeScore(score, index)}>{score}</button>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className={trackingGender ? null : "not-active"}>
+                    {genderStatus.gender} {genderStatus.point}
+                </div>
+                <div className="new-game-btn-container">
+                    <button onClick={() => setConfirmModalOpen(true)}>New Game</button>
+                </div>
             </div>
         </div>
     )
