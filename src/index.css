@@ -6,6 +6,7 @@ html, body {
   height: 100%; 
   width: 100%; 
   background: linear-gradient(90deg, #c2edf0 50%, #f7c7c7 50%);
+  font-family: Arial;
 }
 
 .game-start-modal-container {
@@ -106,9 +107,22 @@ html, body {
   width: 100%;
 }
 
-.team-name-text {
+.team-name-text-field {
   display: table-cell;
   text-align: center;
+}
+
+.team-name-text {
+  text-align: center;
+  background: transparent;
+  border: none;
+  font-size: 30px;
+  font-weight: 600;
+  width: 200px;
+}
+
+.team-name-text:focus {
+  outline: none;
 }
 
 .scores {
@@ -118,9 +132,71 @@ html, body {
   justify-content: space-around;
 }
 .score-1 {
+  
 }
 
 .score-2 {
+}
+
+.undo-btn {
+  padding: 8px 20px;
+  border-radius: 12px;
+  border: 1px solid black;
+  background: transparent;
+  font-weight: 600;
+}
+
+.inactive-undo-btn {
+  pointer-events: none;
+  padding: 8px 20px;
+  border-radius: 12px;
+  border: 1px solid gray;
+  background: white;
+  color: gray
+}
+
+.undo-btn, .inactive-undo-btn {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.gender-point-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gender-tracker, .gender-point-tracker {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.tracker-header {
+  text-decoration: underline;
+  
+  
+}
+
+.tracker-text {
+  margin-top: 5px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+
+.new-game-btn-container {
+  text-align: right;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.new-game-btn {
+  padding: 8px 20px;
+  border-radius: 12px;
+  border: 1px solid black;
+  background: transparent;
+  font-weight: 600;
 }
 
 .not-active {

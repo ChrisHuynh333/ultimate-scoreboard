@@ -10,7 +10,7 @@ const AppProvider = ({ children }) => {
     const [halftimePoint, setHalftimePoint] = useState(8)
     const [isGameStartModalOpen, setIsGameStartModalOpen] = useState(true)
     const [noHalftime, setNoHalftime] = useState(false)
-    const [teamNames, setTeamNames] = useState(["Us", "Them"])
+    const [teamNames, setTeamNames] = useState(["Team 1", "Team 2"])
 
     
   return <AppContext.Provider value={{

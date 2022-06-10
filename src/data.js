@@ -1,53 +1,53 @@
 const data = [
     [
         {
-            gender: 'male',
-            point: 'game start'
+            gender: 'Male',
+            point: 'Game Start'
         },
         {
-            gender: 'female',
-            point: 'halftime point'
+            gender: 'Female',
+            point: 'Halftime Point'
         },
         {
-            gender: 'female',
+            gender: 'Female',
             point: 1
         },
         {
-            gender: 'female',
+            gender: 'Female',
             point: 2
         },
         {
-            gender: 'male',
+            gender: 'Male',
             point: 1
         },
         {
-            gender: 'male',
+            gender: 'Male',
             point: 2
         }
     ],
     [
         {
-            gender: 'female',
-            point: 'game start'
+            gender: 'Female',
+            point: 'Game Start'
         },
         {
-            gender: 'male',
-            point: 'halftime point'
+            gender: 'Male',
+            point: 'Halftime Point'
         },
         {
-            gender: 'male',
+            gender: 'Male',
             point: 1
         },
         {
-            gender: 'male',
+            gender: 'Male',
             point: 2
         },
         {
-            gender: 'female',
+            gender: 'Female',
             point: 1
         },
         {
-            gender: 'female',
+            gender: 'Female',
             point: 2
         }
     ]

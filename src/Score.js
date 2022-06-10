@@ -125,14 +125,14 @@ const Score = () => {
                 <button onClick={() => setConfirmModalOpen(false)}>No</button>
             </div>
             <div className="score-container">
-                <div className={totalScore[0] + totalScore[1] === 0 ? null : "inactive"}>
-                    <button onClick={() => undoAction()}>undo</button>
+                <div className="undo-btn-container">
+                    <button className={totalScore[0] + totalScore[1] === 0 ? "inactive-undo-btn" : "undo-btn"} onClick={() => undoAction()}>Undo</button>
                 </div>
                     <form className="team-name-container">
                         {teamNames.map((teamName, index) => {
                             return (
-                                <span className="team-name-text">
-                                    <input key={index}  onChange={e => handleTeamChange(e.target.value, index)} onClick={(e) => e.target.select()} type="text" value={teamName}/>
+                                <span className="team-name-text-field">
+                                    <input key={index} className="team-name-text" onChange={e => handleTeamChange(e.target.value, index)} onClick={(e) => e.target.select()} type="text" value={teamName}/>
                                 </span>
                             )
                         })}
@@ -147,10 +147,20 @@ const Score = () => {
                     })}
                 </div>
                 <div className={trackingGender ? null : "not-active"}>
-                    {genderStatus.gender} {genderStatus.point}
+                    <div className="gender-point-container">
+                        <div className="gender-tracker">
+                            <span className="tracker-header">Gender</span>
+                            <span className="tracker-text">{genderStatus.gender}</span>
+                            
+                        </div>
+                        <div className="gender-point-tracker">
+                            <span className="tracker-header">Point</span>
+                            <span className="tracker-text">{genderStatus.point}</span>
+                        </div>
+                    </div>
                 </div>
                 <div className="new-game-btn-container">
-                    <button onClick={() => setConfirmModalOpen(true)}>New Game</button>
+                    <button className="new-game-btn" onClick={() => setConfirmModalOpen(true)}>New Game</button>
                 </div>
             </div>
         </div>
