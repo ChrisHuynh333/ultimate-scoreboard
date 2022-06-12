@@ -118,10 +118,12 @@ const Score = () => {
 
     return (
         <div className={isGameStartModalOpen ? "not-active" : "active"}>
-            <div className={confirmModalOpen ? "active" : "not-active"}>
-                <div>Start new game?</div>
-                <button onClick={() => newGame()}>Confirm</button>
-                <button onClick={() => setConfirmModalOpen(false)}>No</button>
+            <div className={confirmModalOpen ? "confirm-modal" : "confirm-modal not-active"}>
+                <div className="confirm-modal-text">Start new game?</div>
+                <div className="confirm-modal-btn-container">
+                    <button className="confirm-modal-no-btn" onClick={() => setConfirmModalOpen(false)}>No</button>
+                    <button className="confirm-modal-confirm-btn" onClick={() => newGame()}>Confirm</button>
+                </div>
             </div>
             <div className="score-container">
                 <div className="undo-btn-container">
