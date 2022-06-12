@@ -95,6 +95,7 @@ const Score = () => {
         setIsGameStartModalOpen(true)
         setNoHalftime(false)
         setConfirmModalOpen(false)
+        halftimeHappened.current = false;
     }
 
     useEffect(() => {
