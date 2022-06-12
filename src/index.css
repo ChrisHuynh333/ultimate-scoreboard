@@ -139,10 +139,6 @@ html, body {
   width: 200px;
 }
 
-
-.score-2 {
-}
-
 .undo-btn {
   padding: 8px 20px;
   border-radius: 12px;
@@ -187,8 +183,6 @@ html, body {
 
 .tracker-header {
   text-decoration: underline;
-  
-  
 }
 
 .tracker-text {

@@ -17,7 +17,6 @@ const GameStartModal = () => {
     }
 
     const handleScoreChange = (e) => {
-        console.log(e.target.value)
         setHalftimePoint(Math.ceil(e.target.value / 2))
     }
     const handleGenderChange = (e) => {

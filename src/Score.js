@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, forceUpdate} from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useGlobalContext } from './context'
 import data from './data'
 
@@ -103,7 +103,6 @@ const Score = () => {
             setPointsLog([...pointsLog, {points: totalScore, genderCounter}])
         }
         setFirstRender(false)
-        console.log(halftimePoint)
     },[totalScore])
 
     useEffect(() => {
