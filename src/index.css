@@ -15,17 +15,20 @@ html, body {
   top: 50%;
   transform: translate(-50%, -50%);
   background-color: rgb(238, 238, 238);
-  padding: 10px 50px;
+  padding: 0px 50px;
   font-size: 14px;
   font-family: Arial;
   box-shadow: 0 1rem 2rem #000a;
   border-radius: 12px;
   background: linear-gradient(135deg, #f7c7c7,#c2edf0);
+  z-index: 1;
+  height: 100vh;
 }
 
 .game-start-modal-form {
   display: flex;
   flex-direction: column;
+  margin-top: 25px;
 }
 
 .game-start-modal-row {
@@ -35,7 +38,7 @@ html, body {
 }
 
 .game-start-modal-row-header {
-  margin: 8px auto;
+  margin: 4px auto;
   font-weight: 600;
   color: rgb(94, 94, 94);
 }
@@ -62,7 +65,7 @@ html, body {
 .game-start-modal-radio-btn label {
   display: inline-block;
   background-color: rgb(228, 228, 228);
-  padding: 4px 11px;
+  padding: 3px 10px;
   font-family: Arial;
   font-size: 12px;
   cursor: pointer;
