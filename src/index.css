@@ -131,9 +131,14 @@ html, body {
   margin-bottom: auto;
   justify-content: space-around;
 }
-.score-1 {
-  
+
+.score-btn {
+  background: transparent;
+  border: 2px solid black;
+  font-size: 100px;
+  width: 200px;
 }
+
 
 .score-2 {
 }
@@ -170,6 +175,14 @@ html, body {
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+.gender-tracker {
+  width: 150px;
+}
+
+.gender-point-tracker {
+  width: 150px;
 }
 
 .tracker-header {

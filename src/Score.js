@@ -141,7 +141,7 @@ const Score = () => {
                     {totalScore.map((score, index) => {
                         return (
                             <div className={`score-${index}`} key={index}>
-                                <button onClick={() => changeScore(score, index)}>{score}</button>
+                                <button className="score-btn" onClick={() => changeScore(score, index)}>{score}</button>
                             </div>
                         )
                     })}
