@@ -67,9 +67,6 @@ const Score = () => {
             setTotalScore([0, 0])
         }
         else {
-            if(((totalScore[0] === halftimePoint && totalScore[1] < halftimePoint) || (totalScore[0] < halftimePoint && totalScore[1] === halftimePoint)) && !noHalftime) {
-                halftimeHappened.current = false
-            }
             const prevPoints = pointsLog[(pointsLog.length - 2)].points
             const prevGender = pointsLog[(pointsLog.length - 2)].genderCounter
             setTotalScore(prevPoints)
@@ -137,9 +134,9 @@ const Score = () => {
                     <button className="confirm-modal-confirm-btn" onClick={() => newGame()}>Confirm</button>
                 </div>
             </div>
-            <span className={currentPointIsHalftime.current ? "pop-up-modal" : "pop-up-modal not-active"}>
-                test 1
-            </span>
+            <div className={currentPointIsHalftime.current ? "pop-up-modal" : "pop-up-modal not-active"}>
+                <p>Halftime</p>
+            </div>
             <div className="score-container">
                 <div className="undo-btn-container">
                     <button className={totalScore[0] + totalScore[1] === 0 ? "inactive-undo-btn" : "undo-btn"} onClick={() => undoAction()}>Undo</button>
@@ -171,7 +168,7 @@ const Score = () => {
                         </div>
                         <div className="gender-point-tracker">
                             <span className="tracker-header">Point</span>
-                            <span className="tracker-text">{genderStatus.point} <br/> {currentPointIsHalftime.current && "(Halftime)"}</span>
+                            <span className="tracker-text">{genderStatus.point}</span>
                         </div>
                     </div>
                 </div>
