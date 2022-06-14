@@ -13,6 +13,7 @@ const Score = () => {
     const isUndo = useRef(false)
     const halftimePointInLog = useRef(0)
     const halftimeHappened = useRef(false)
+    const currentPointIsHalftime = useRef(false)
 
     const changeScore = (score, index) => {
         if (isUndo.current) {
@@ -27,12 +28,17 @@ const Score = () => {
         if(totalScore[0] === 0 && totalScore[1] === 0) {
             setGenderStatus(...[genderData[0]])
             setGenderCounter(2)
+            currentPointIsHalftime.current = false
         }
         else if(((totalScore[0] === halftimePoint && totalScore[1] < halftimePoint) || (totalScore[0] < halftimePoint && totalScore[1] === halftimePoint)) && !noHalftime) {
             if (!halftimeHappened.current) {
                 halftimePointInLog.current = pointsLog.length
-                setGenderStatus(...[genderData[1]])
-                setGenderCounter(4)
+                setGenderStatus(...[genderData[genderCounter]])
+                setGenderCounter(genderCounter + 1)
+                if (count > 4) {
+                    setGenderCounter(2);
+                }
+                currentPointIsHalftime.current = true
                 if(!isUndo.current) {
                     halftimeHappened.current = true
                 }
@@ -42,6 +48,7 @@ const Score = () => {
                 if (count > 4) {
                     setGenderCounter(2);
                 }
+                currentPointIsHalftime.current = false
             }
         }
         else {
@@ -50,6 +57,7 @@ const Score = () => {
             if (count > 4) {
                 setGenderCounter(2);
             }
+            currentPointIsHalftime.current = false
         }
     }
 
@@ -157,7 +165,7 @@ const Score = () => {
                         </div>
                         <div className="gender-point-tracker">
                             <span className="tracker-header">Point</span>
-                            <span className="tracker-text">{genderStatus.point}</span>
+                            <span className="tracker-text">{genderStatus.point} <br/> {currentPointIsHalftime.current && "(Halftime)"}</span>
                         </div>
                     </div>
                 </div>
