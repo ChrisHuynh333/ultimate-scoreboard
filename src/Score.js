@@ -113,6 +113,7 @@ const Score = () => {
         halftimePointInLog.current = 0;
         halftimeHappened.current = false;
         currentPointIsHalftime.current = false;
+        refreshBool.current = false;
     }
 
     useEffect(() => {
