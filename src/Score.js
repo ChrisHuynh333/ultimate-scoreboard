@@ -6,7 +6,7 @@ import useLocalStorageForState from './useLocalStorageForState'
 
 const Score = () => {
     const {totalScore, setTotalScore, genderStatus, setGenderStatus, firstPointGender, isGameStartModalOpen, halftimePoint, trackingGender, noHalftime, setIsGameStartModalOpen, 
-    setCoed, setFirstPointGender, setTrackingGender, setHalftimePoint, setNoHalftime, teamNames, setTeamNames} = useGlobalContext();
+    setCoed, setFirstPointGender, setTrackingGender, setHalftimePoint, setNoHalftime, teamNames, setTeamNames, refreshBool} = useGlobalContext();
     const [genderCounter, setGenderCounter] = useLocalStorageForState("genderCounter", 0)
     const [pointsLog, setPointsLog] = useLocalStorageForState("pointsLog", [{points: totalScore, genderCounter}])
     const [firstRender, setFirstRender] = useLocalStorageForState("firstRender", true)
@@ -16,8 +16,7 @@ const Score = () => {
     const halftimePointInLog = useLocalStorageForRef("halftimePointInLog", 0)
     const halftimeHappened = useLocalStorageForRef("halftimeHappened", false)
     const currentPointIsHalftime = useLocalStorageForRef("currentPointIsHalftime", false)
-    const refreshBool = useRef(true)
-
+    
     const changeScore = (score, index) => {
         refreshBool.current = false;
         if (isUndo.current) {
@@ -110,6 +109,7 @@ const Score = () => {
         setConfirmModalOpen(false)
         setGenderCounter(0)
         setPointsLog([{points: [0, 0], genderCounter: 0}])
+        setGenderData([])
         halftimePointInLog.current = 0;
         halftimeHappened.current = false;
         currentPointIsHalftime.current = false;
@@ -117,13 +117,17 @@ const Score = () => {
     }
 
     useEffect(() => {
-        if(!refreshBool.current) {
+        if(!refreshBool.current || (refreshBool.current && totalScore[0] === 0 && totalScore[1] === 0 )) {
             checkGender(genderCounter)
-        }
         if(!firstRender && !isUndo.current) {
-            setPointsLog([...pointsLog, {points: totalScore, genderCounter}])
+            if(totalScore[0] === 0 && totalScore[1] === 0) {
+                setPointsLog([{points: totalScore, genderCounter}])
+            } else {
+                setPointsLog([...pointsLog, {points: totalScore, genderCounter}])
+            }
         }
         setFirstRender(false)
+    }
     },[totalScore])
 
     useEffect(() => {

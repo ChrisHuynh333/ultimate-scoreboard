@@ -3,11 +3,12 @@ import { useGlobalContext } from "./context"
 import useLocalStorageForState from "./useLocalStorageForState"
 
 const GameStartModal = () => {
-    const {coed, setCoed, trackingGender, setTrackingGender, setFirstPointGender, halftimePoint, setHalftimePoint, isGameStartModalOpen, setIsGameStartModalOpen, noHalftime, setNoHalftime} = useGlobalContext()
+    const {coed, setCoed, trackingGender, setTrackingGender, setFirstPointGender, halftimePoint, setHalftimePoint, isGameStartModalOpen, setIsGameStartModalOpen, noHalftime, setNoHalftime, refreshBool} = useGlobalContext()
     const [customCap, setCustomCap] = useLocalStorageForState("customCap", false)
     const [customCapError, setCustomCapError] = useLocalStorageForState("customCapError", false)
 
     const handleSubmit = (e) => {
+        refreshBool.current = false;
         e.preventDefault()
         if(halftimePoint <= 0) {
             setCustomCapError(true)

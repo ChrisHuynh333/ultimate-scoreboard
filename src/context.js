@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import useLocalStorageForState from './useLocalStorageForState'
 
 const AppContext = React.createContext()
@@ -12,6 +12,8 @@ const AppProvider = ({ children }) => {
     const [isGameStartModalOpen, setIsGameStartModalOpen] = useLocalStorageForState("isGameStartModalOpen", true)
     const [noHalftime, setNoHalftime] = useLocalStorageForState("noHalftime", false)
     const [teamNames, setTeamNames] = useLocalStorageForState("teamNames", ["Team 1", "Team 2"])
+    const refreshBool = useRef(true)
+
 
     
   return <AppContext.Provider value={{
@@ -32,7 +34,8 @@ const AppProvider = ({ children }) => {
       noHalftime,
       setNoHalftime,
       teamNames,
-      setTeamNames
+      setTeamNames,
+      refreshBool
     }}>{children}</AppContext.Provider>
 }
 export const useGlobalContext = () => {

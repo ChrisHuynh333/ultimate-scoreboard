@@ -6,7 +6,6 @@ const useLocalStorageForRef = (storageKey, fallbackState) => {
     );
   
     localStorage.setItem(storageKey, JSON.stringify(value.current));
-    console.log(storageKey, value.current)
     return value;
   };
 
