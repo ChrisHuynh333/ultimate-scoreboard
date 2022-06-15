@@ -1,21 +1,25 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useGlobalContext } from './context'
 import data from './data'
+import useLocalStorageForRef from './useLocalStorageForRef'
+import useLocalStorageForState from './useLocalStorageForState'
 
 const Score = () => {
     const {totalScore, setTotalScore, genderStatus, setGenderStatus, firstPointGender, isGameStartModalOpen, halftimePoint, trackingGender, noHalftime, setIsGameStartModalOpen, 
     setCoed, setFirstPointGender, setTrackingGender, setHalftimePoint, setNoHalftime, teamNames, setTeamNames} = useGlobalContext();
-    const [genderCounter, setGenderCounter] = useState(0)
-    const [pointsLog, setPointsLog] = useState([{points: totalScore, genderCounter}])
-    const [firstRender, setFirstRender] = useState(true)
-    const [genderData, setGenderData] = useState([])
-    const [confirmModalOpen, setConfirmModalOpen] = useState(false)
-    const isUndo = useRef(false)
-    const halftimePointInLog = useRef(0)
-    const halftimeHappened = useRef(false)
-    const currentPointIsHalftime = useRef(false)
+    const [genderCounter, setGenderCounter] = useLocalStorageForState("genderCounter", 0)
+    const [pointsLog, setPointsLog] = useLocalStorageForState("pointsLog", [{points: totalScore, genderCounter}])
+    const [firstRender, setFirstRender] = useLocalStorageForState("firstRender", true)
+    const [genderData, setGenderData] = useLocalStorageForState("genderData", [])
+    const [confirmModalOpen, setConfirmModalOpen] = useLocalStorageForState("confirmModalOpen", false)
+    const isUndo = useLocalStorageForRef("isUndo", false)
+    const halftimePointInLog = useLocalStorageForRef("halftimePointInLog", 0)
+    const halftimeHappened = useLocalStorageForRef("halftimeHappened", false)
+    const currentPointIsHalftime = useLocalStorageForRef("currentPointIsHalftime", false)
+    const refreshBool = useRef(true)
 
     const changeScore = (score, index) => {
+        refreshBool.current = false;
         if (isUndo.current) {
             isUndo.current = false
         }
@@ -62,6 +66,7 @@ const Score = () => {
     }
 
     const undoAction = () => {
+        refreshBool.current = false;
         if(pointsLog.length === 0) {
             setFirstRender(true)
             setTotalScore([0, 0])
@@ -103,11 +108,17 @@ const Score = () => {
         setIsGameStartModalOpen(true)
         setNoHalftime(false)
         setConfirmModalOpen(false)
+        setGenderCounter(0)
+        setPointsLog([{points: [0, 0], genderCounter: 0}])
+        halftimePointInLog.current = 0;
         halftimeHappened.current = false;
+        currentPointIsHalftime.current = false;
     }
 
     useEffect(() => {
-        checkGender(genderCounter)
+        if(!refreshBool.current) {
+            checkGender(genderCounter)
+        }
         if(!firstRender && !isUndo.current) {
             setPointsLog([...pointsLog, {points: totalScore, genderCounter}])
         }
@@ -122,7 +133,9 @@ const Score = () => {
             correctData = data[1]
         }
         setGenderData(correctData)
-        setGenderStatus(correctData[0])
+        if(totalScore[0] === 0 && totalScore[1] === 0) {
+            setGenderStatus(correctData[0])
+        }
     }, [isGameStartModalOpen])
 
     return (

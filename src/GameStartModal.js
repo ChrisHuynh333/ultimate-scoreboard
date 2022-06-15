@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import { useGlobalContext } from "./context"
+import useLocalStorageForState from "./useLocalStorageForState"
 
 const GameStartModal = () => {
     const {coed, setCoed, trackingGender, setTrackingGender, setFirstPointGender, halftimePoint, setHalftimePoint, isGameStartModalOpen, setIsGameStartModalOpen, noHalftime, setNoHalftime} = useGlobalContext()
-    const [customCap, setCustomCap] = useState(false)
-    const [customCapError, setCustomCapError] = useState(false)
+    const [customCap, setCustomCap] = useLocalStorageForState("customCap", false)
+    const [customCapError, setCustomCapError] = useLocalStorageForState("customCapError", false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
