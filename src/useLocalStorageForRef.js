@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 const useLocalStorageForRef = (storageKey, fallbackState) => {
     const value = useRef(

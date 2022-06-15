@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { useGlobalContext } from './context'
 import data from './data'
 import useLocalStorageForRef from './useLocalStorageForRef'
