@@ -110,6 +110,7 @@ const Score = () => {
         setGenderCounter(0)
         setPointsLog([{points: [0, 0], genderCounter: 0}])
         setGenderData([])
+        setTeamNames(["Team 1", "Team 2"])
         halftimePointInLog.current = 0;
         halftimeHappened.current = false;
         currentPointIsHalftime.current = false;
