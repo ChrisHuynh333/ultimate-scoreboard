@@ -128,7 +128,8 @@ const Score = () => {
             }
         }
         setFirstRender(false)
-    }
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[totalScore])
 
     useEffect(() => {
@@ -142,6 +143,7 @@ const Score = () => {
         if(totalScore[0] === 0 && totalScore[1] === 0) {
             setGenderStatus(correctData[0])
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isGameStartModalOpen])
 
     return (
